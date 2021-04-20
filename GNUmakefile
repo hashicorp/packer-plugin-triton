@@ -1,4 +1,4 @@
-NAME=scaffolding
+NAME=triton
 BINARY=packer-plugin-${NAME}
 
 COUNT?=1
