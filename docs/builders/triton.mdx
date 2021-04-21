@@ -10,6 +10,7 @@ description: >
 
   Cloud API to create images.
 page_title: Triton - Builders
+nav_title: Triton
 ---
 
 # Triton Builder
@@ -40,6 +41,23 @@ software, you'll need an operator to manually [enable custom
 images](https://docs.joyent.com/private-cloud/install/image-management) after
 installing Triton. This is not a requirement for Joyent's public cloud offering
 of Triton.
+
+### Installation
+
+To install this plugin using Packer v1.7.0 or later, copy and paste this code into your Packer configuration.
+
+Then, run [`packer init`](https://www.packer.io/docs/commands/init).
+
+```hcl
+packer {
+  required_plugins {
+    triton = {
+      version = ">= 0.0.1"
+      source  = "github.com/hashicorp/triton"
+    }
+  }
+}
+```
 
 ## Configuration Reference
 
@@ -164,19 +182,44 @@ can also be supplied to override the typical auto-generated key:
 - `source_machine_image_filter` (object) - Filters used to populate the
   `source_machine_image` field. Example:
 
-  ```json
-  {
-    "source_machine_image_filter": {
-      "name": "ubuntu-16.04",
-      "type": "lx-dataset",
-      "most_recent": true
-    }
+  ```hcl
+  source_machine_image_filter = {
+    most_recent = "true"
+    name        = "ubuntu-16.04"
+    type        = "lx-dataset"
   }
   ```
 
 ## Basic Example
 
 Below is a minimal example to create an image on the Joyent public cloud:
+
+<Tabs>
+<Tab heading="HCL2">
+
+```hcl
+source "triton" "example" {
+  image_name    = "my_new_image"
+  image_version = "1.0.0"
+  source_machine_image_filter = {
+    most_recent = "true"
+    name        = "ubuntu-16.04"
+    type        = "lx-dataset"
+  }
+  source_machine_name    = "image-builder"
+  source_machine_package = "g4-highcpu-128M"
+  ssh_username           = "root"
+  triton_account         = "triton_username"
+  triton_key_id          = "6b:95:03:3d:d3:6e:52:69:01:96:1a:46:4a:8d:c1:7e"
+}
+
+build {
+  sources = ["source.triton.example"]
+}
+```
+
+</Tab>
+<Tab heading="JSON">
 
 ```json
 {
@@ -203,6 +246,8 @@ Below is a minimal example to create an image on the Joyent public cloud:
   ]
 }
 ```
+</Tab>
+</Tabs>
 
 In the above example the SSH key used for `triton_key_material` (connecting to
 the Cloud API) and the `ssh_private_key_file` (connecting to the VM once it has

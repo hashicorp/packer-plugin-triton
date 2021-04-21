@@ -1,0 +1,23 @@
+{
+  "builders": [
+    {
+      "type": "triton",
+
+      "triton_account": "triton_username",
+      "triton_key_id": "6b:95:03:3d:d3:6e:52:69:01:96:1a:46:4a:8d:c1:7e",
+
+      "source_machine_name": "image-builder",
+      "source_machine_package": "g4-highcpu-128M",
+      "source_machine_image_filter": {
+        "name": "ubuntu-16.04",
+        "type": "lx-dataset",
+        "most_recent": "true"
+      },
+
+      "ssh_username": "root",
+
+      "image_name": "my_new_image",
+      "image_version": "1.0.0"
+    }
+  ]
+}
