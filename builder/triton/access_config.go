@@ -8,7 +8,6 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/hashicorp/errwrap"
 	"github.com/hashicorp/packer-plugin-sdk/communicator"
 	"github.com/hashicorp/packer-plugin-sdk/template/interpolate"
 	tgo "github.com/joyent/triton-go"
@@ -167,7 +166,7 @@ type Client struct {
 func (c *Client) Compute() (*compute.ComputeClient, error) {
 	computeClient, err := compute.NewClient(c.config)
 	if err != nil {
-		return nil, errwrap.Wrapf("Error Creating Triton Compute Client: {{err}}", err)
+		return nil, fmt.Errorf("Error Creating Triton Compute Client: %#v", err)
 	}
 
 	if c.insecureSkipTLSVerify {
@@ -180,7 +179,7 @@ func (c *Client) Compute() (*compute.ComputeClient, error) {
 func (c *Client) Network() (*network.NetworkClient, error) {
 	networkClient, err := network.NewClient(c.config)
 	if err != nil {
-		return nil, errwrap.Wrapf("Error Creating Triton Network Client: {{err}}", err)
+		return nil, fmt.Errorf("Error Creating Triton Network Client: %#v", err)
 	}
 
 	if c.insecureSkipTLSVerify {
