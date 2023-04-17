@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 source "triton" "example" {
   image_name    = "my_new_image"
   image_version = "1.0.0"
