@@ -1,4 +1,5 @@
 main
 dist/*
 packer-plugin-triton
+.docs
 crash.log
