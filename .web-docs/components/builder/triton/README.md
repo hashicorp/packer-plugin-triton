@@ -1,20 +1,3 @@
----
-description: >
-  The triton Packer builder is able to create new images for use with Triton.
-
-  These images can be used with both the Joyent public cloud (which is powered
-  by
-
-  Triton) as well with private Triton installations. This builder uses the
-  Triton
-
-  Cloud API to create images.
-page_title: Triton - Builders
-nav_title: Triton
----
-
-# Triton Builder
-
 Type: `triton`
 Artifact BuilderId: `joyent.triton`
 
@@ -52,9 +35,18 @@ In addition to the options listed here, a
 builder. In addition to the options defined there, a private key file
 can also be supplied to override the typical auto-generated key:
 
-@include 'packer-plugin-sdk/communicator/SSH-Private-Key-File-not-required.mdx'
+- `ssh_private_key_file` (string) - Path to a PEM encoded private key file to use to authenticate with SSH.
+  The `~` can be used in path and will be expanded to the home directory
+  of current user.
 
-@include 'packer-plugin-sdk/communicator/SSH-Agent-Auth-not-required.mdx'
+
+- `ssh_agent_auth` (bool) - If true, the local SSH agent will be used to authenticate connections to
+  the source instance. No temporary keypair will be created, and the
+  values of [`ssh_password`](#ssh_password) and
+  [`ssh_private_key_file`](#ssh_private_key_file) will be ignored. The
+  environment variable `SSH_AUTH_SOCK` must be set for this option to work
+  properly.
+
 
 ### Required:
 
